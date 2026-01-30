@@ -1,146 +1,177 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>George Eyo – Backend / Web Developer</title>
-  <link href="style.css" rel="stylesheet" />
-  
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- <header>
-  <h1>George Eyo</h1>
-  <h3>Backend / Web Developer (Django, Python)</h3>
-  <p>I build reliable web applications using Python and Django — from idea to deployment.</p>
-  <a href="#projects" class="btn">View My Work</a>
-  <a href="#contact" class="btn secondary">Contact Me</a>
-</header> -->
-
-
-<header>
-  <div class="header-text">
-    <h1>George Eyo</h1>
-    <h3>Backend / Web Developer (Django, Python)</h3>
-    <p>I build reliable web applications using Python and Django — from idea to deployment.</p>
-    <a href="#projects" class="btn">View My Work</a>
-    <a href="#contact" class="btn secondary">Contact Me</a>
+<header class="hero">
+  <div class="container hero-content">
+    <div class="header-text">
+      <h1>George Eyo</h1>
+      <h3>Backend / Web Developer (Django, Python)</h3>
+      <p>
+        I build reliable, scalable web applications using Python and Django —
+        from idea to deployment.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn">View My Work</a>
+        <a href="#contact" class="btn secondary">Contact Me</a>
+      </div>
+    </div>
+    <img src="images/moi.png" alt="George Eyo" class="profile-pic">
   </div>
-  <img src="images/moi.png" alt="George Eyo" class="profile-pic">
 </header>
 
-
 <section id="about">
-  <h2>About Me</h2>
-  <p>I am a backend-focused developer who enjoys building admin dashboards, data-driven systems, and real-world business applications using Django and Python.</p>
-  <p>I don’t just code locally — I deploy, debug, and maintain real applications online. I understand static files, media uploads, authentication, hosting, and production issues.</p>
-  <p>I also have a background in Mechanical Engineering, which shaped my problem-solving mindset.</p>
+  <div class="container">
+    <h2>About Me</h2>
+    <p>
+      I am a backend-focused developer who enjoys building admin dashboards,
+      data-driven systems, and real-world business applications using Django and Python.
+    </p>
+    <p>
+      I don’t just code locally — I deploy, debug, and maintain real applications online.
+      I understand static files, media uploads, authentication, hosting, and production issues.
+    </p>
+    <p>
+      I also have a background in Mechanical Engineering, which shaped my
+      analytical and problem-solving mindset.
+    </p>
+  </div>
 </section>
 
 <section id="skills">
-  <h2>Skills</h2>
-  <div class="grid">
-    <div class="card"><strong>Languages</strong><br>Python, HTML, CSS, JavaScript</div>
-    <div class="card"><strong>Frameworks</strong><br>Django, Bootstrap</div>
-    <div class="card"><strong>Databases</strong><br>SQLite, MySQL, PostgreSQL</div>
-    <div class="card"><strong>Tools</strong><br>Git, GitHub, PythonAnywhere</div>
-    <div class="card"><strong>Concepts</strong><br>CRUD, Auth, File Uploads, Deployment</div>
+  <div class="container">
+    <h2>Skills</h2>
+    <div class="grid">
+      <div class="card"><strong>Languages</strong><br>Python, HTML, CSS, JavaScript</div>
+      <div class="card"><strong>Frameworks</strong><br>Django, Bootstrap</div>
+      <div class="card"><strong>Databases</strong><br>SQLite, MySQL, PostgreSQL</div>
+      <div class="card"><strong>Tools</strong><br>Git, GitHub, PythonAnywhere</div>
+      <div class="card"><strong>Concepts</strong><br>CRUD, Auth, File Uploads, Deployment</div>
+    </div>
   </div>
 </section>
 
 <section id="projects">
-  <h2>Projects</h2>
-  <p>These projects show my ability to design, build, deploy, and maintain real-world web systems.</p>
-  <div class="grid">
+  <div class="container">
+    <h2>Projects</h2>
+    <p class="section-intro">
+      These projects demonstrate my ability to design, build, deploy,
+      and maintain real-world web systems.
+    </p>
 
-  <div class="card">
-    <img src="images/admin.png" alt="Admin Dashboard">
-    <h3>Admin Dashboard System</h3>
-    <p>Web app for managing services, messages, and public content.</p>
-    <ul>
-      <li><strong>Problem:</strong> Manual content updates and poor admin control</li>
-      <li><strong>I built:</strong> Service CRUD, image uploads, admin auth, public views</li>
-      <li><strong>Deployment:</strong> PythonAnywhere</li>
-    </ul>
-    <p><strong>Tech:</strong> Django, Python, Bootstrap, SQLite</p>
-    <p><a href="https://gee.pythonanywhere.com/" target="_blank">Live Demo</a> | <a href="https://github.com/geecosmic/Admin-Dashboard" target="_blank">GitHub</a></p>
+    <div class="grid">
+
+      <div class="card">
+        <img src="images/admin.png" alt="Admin Dashboard">
+        <h3>Admin Dashboard System</h3>
+        <p>Web app for managing services, messages, and public content.</p>
+        <ul>
+          <li><strong>Problem:</strong> Manual content updates</li>
+          <li><strong>Built:</strong> CRUD, image uploads, admin auth</li>
+          <li><strong>Deployment:</strong> PythonAnywhere</li>
+        </ul>
+        <p><strong>Tech:</strong> Django, Python, Bootstrap</p>
+        <p>
+          <a href="https://gee.pythonanywhere.com/" target="_blank">Live Demo</a> |
+          <a href="https://github.com/geecosmic/Admin-Dashboard" target="_blank">GitHub</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <img src="images/fin.png" alt="GFund App">
+        <h3>GFund – Fintech VTU App</h3>
+        <p>Fintech platform for airtime, data, electricity, and cable TV payments.</p>
+        <ul>
+          <li><strong>Built:</strong> Wallets, transactions, APIs</li>
+          <li><strong>Role:</strong> Backend development</li>
+        </ul>
+        <p><strong>Tech:</strong> Django, Python, Flutter</p>
+        <p>
+          <a href="#">APK</a> |
+          <a href="https://github.com/geecosmic/fintech_backend" target="_blank">GitHub</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <img src="images/tech.png" alt="Message Collection">
+        <h3>Message Collection Web App</h3>
+        <p>Simple web app that collects user messages into a database.</p>
+        <ul>
+          <li><strong>Built:</strong> Forms, storage, admin viewing</li>
+        </ul>
+        <p><strong>Tech:</strong> Django, Python, CSS</p>
+        <p>
+          <a href="#">Live</a> |
+          <a href="https://github.com/geecosmic/Business-Site" target="_blank">GitHub</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <img src="images/blog.jpg" alt="Blog CMS">
+        <h3>Blog & CMS Platform</h3>
+        <p>Content management system with admin publishing tools.</p>
+        <ul>
+          <li><strong>Built:</strong> Post CRUD, categories, uploads</li>
+          <li><strong>Features:</strong> Admin panel, public blog</li>
+        </ul>
+        <p><strong>Tech:</strong> Django, Python, Bootstrap</p>
+        <p>
+          <a href="https://geecms.pythonanywhere.com/" target="_blank">Live</a> |
+          <a href="https://github.com/geecosmic/Blog-CMS" target="_blank">GitHub</a>
+        </p>
+      </div>
+
+    </div>
   </div>
-
-  <div class="card">
-    <img src="images/fin.png" alt="GFund App">
-    <h3>GFund – Fintech VTU App</h3>
-    <p>Fintech platform for airtime, data, electricity, and cable TV payments.</p>
-    <ul>
-      <li><strong>Problem:</strong> Difficult access to digital utility payments</li>
-      <li><strong>I built:</strong> Backend logic for users, wallets, and transactions</li>
-      <li><strong>Role:</strong> Backend and API development</li>
-    </ul>
-    <p><strong>Tech:</strong> Django, Python, Flutter</p>
-    <p><a href="#">APK</a> | <a href="https://github.com/geecosmic/fintech_backend" target="_blank">GitHub</a></p>
-  </div>
-
-  <div class="card">
-    <img src="images/tech.png" alt="Message Collection">
-    <h3>Successful Message Collection</h3>
-    <p>A Simple webApp that collects messages in Database successfully.</p>
-    <ul>
-      <li><strong>Problem:</strong> Need for simple working message collection</li>
-      <li><strong>I built:</strong> WebApp that collects messages users send from the front end</li>
-    </ul>
-    <p><strong>Tech:</strong> Django, Python, CSS</p>
-    <p><a href="#">Live</a> | <a href="https://github.com/geecosmic/Business-Site">GitHub</a></p>
-  </div>
-
-  <div class="card">
-    <img src="images/blog.jpg" alt="Blog System">
-    <h3>Blog & Content Management System</h3>
-    <p>Content platform with admin publishing tools.</p>
-    <ul>
-      <li><strong>Problem:</strong> Need for simple content publishing</li>
-      <li><strong>I built:</strong> Post CRUD, categories, image uploads</li>
-      <li><strong>Features:</strong> Admin panel, public blog pages</li>
-    </ul>
-    <p><strong>Tech:</strong> Django, Python, Bootstrap</p>
-    <p><a href="https://geecms.pythonanywhere.com/" target="_blank">Live</a> | <a href="https://github.com/geecosmic/Blog-CMS">GitHub</a></p>
-  </div>
-
-</div>
 </section>
 
 <section id="experience">
-  <h2>Experience</h2>
-  <div class="card">
-    <strong>Deputy Manager — The Kabbalah Center Nigeria</strong> (2019 – Present)
-    <ul>
-      <li>Built desktop and web tools using Python</li>
-      <li>Managed websites and performance</li>
-      <li>Data analysis for business decisions</li>
-    </ul>
-  </div>
-  <div class="card">
-    <strong>Website Developer — PureTech Marketing Agency</strong> (2016 – 2019)
-    <ul>
-      <li>Built Django web apps</li>
-      <li>Managed databases and admin tools</li>
-    </ul>
+  <div class="container">
+    <h2>Experience</h2>
+
+    <div class="card">
+      <strong>Deputy Manager — The Kabbalah Center Nigeria</strong> (2019 – Present)
+      <ul>
+        <li>Built desktop and web tools using Python</li>
+        <li>Managed websites and performance</li>
+        <li>Data analysis for business decisions</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <strong>Website Developer — PureTech Marketing Agency</strong> (2016 – 2019)
+      <ul>
+        <li>Built Django web applications</li>
+        <li>Managed databases and admin tools</li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <section id="education">
-  <h2>Education</h2>
-  <ul>
-    <li>HND Mechanical Engineering — The Polytechnic Calabar (2003)</li>
-    <li>ND Mechanical Engineering — The Polytechnic Calabar (1998)</li>
-    <li>Udemy — Python for Data Science (2020)</li>
-  </ul>
+  <div class="container">
+    <h2>Education</h2>
+    <ul>
+      <li>HND Mechanical Engineering — The Polytechnic Calabar (2003)</li>
+      <li>ND Mechanical Engineering — The Polytechnic Calabar (1998)</li>
+      <li>Udemy — Python for Data Science (2020)</li>
+    </ul>
+  </div>
 </section>
 
 <section id="contact">
-  <h2>Contact</h2>
-  <p>Email: eyogeorge23@gmail.com</p>
-  <p>Phone: +234 813 628 5727</p>
-  <p>Location: Lagos, Nigeria</p>
+  <div class="container">
+    <h2>Contact</h2>
+    <p>Email: <strong>eyogeorge23@gmail.com</strong></p>
+    <p>Phone: <strong>+234 813 628 5727</strong></p>
+    <p>Location: Lagos, Nigeria</p>
+  </div>
 </section>
 
 <footer>
@@ -149,9 +180,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
