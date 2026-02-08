@@ -13,10 +13,12 @@
 }
 
 body {
-  font-family: "Inter", "Segoe UI", sans-serif;
+  /* font-family: "Inter", "Segoe UI", sans-serif; */
+  font-family: "Roboto,Arial, sans-serif";
   background: var(--bg);
   color: var(--primary);
   line-height: 1.7;
+  font-size: large;
 }
 
 img {
@@ -112,12 +114,18 @@ h2 {
 .card {
   background: var(--card);
   padding: 1.5rem;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  border-bottom-color:black ;
+
 }
 
 .card h3 {
   margin: 1rem 0 0.5rem;
+  color: darkblue
+
 }
 
 .card ul {
