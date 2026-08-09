@@ -349,6 +349,12 @@
       animation-delay: -1.5s;
     }
 
+    .hero-image .floating-tag.tag-3 {
+    top: 50%;
+    right: -15%;
+    animation-delay: -3s;
+  }
+
     @keyframes float-tag {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
@@ -1144,8 +1150,9 @@
         <div class="profile-frame">
           <img src="images/moi.png" alt="George Eyo">
         </div>
-        <div class="floating-tag tag-1">🐍 Python Expert</div>
-        <div class="floating-tag tag-2">⚡ Django Pro</div>
+        <div class="floating-tag tag-1">🐍 Python Developer</div>
+        <div class="floating-tag tag-2">⚡ Django Developer</div>
+        <div class="floating-tag tag-3">⚡ Flutter Developer</div>
       </div>
     </div>
   </header>
@@ -1273,7 +1280,7 @@
   <section id="projects">
     <div class="container">
       <div class="section-header fade-in">
-        <h2>Featured <span class="gradient-text">Projects</span></h2>
+        <h2>My Featured <span class="gradient-text">Projects</span></h2>
         <p>Real-world applications I've designed, built, deployed, and maintained</p>
         <div class="section-divider"></div>
       </div>
@@ -1290,7 +1297,6 @@
             <ul class="project-meta">
               <li><strong>Problem:</strong> Fragmented workflows for managing job content and services.</li>
               <li><strong>Built:</strong> Secure admin panel with authentication, uploads, and CRUD.</li>
-              <li><strong>Role:</strong> Full Stack Developer</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag">Flutter</span>
@@ -1307,8 +1313,9 @@
 
         <div class="project-card fade-in">
           <div class="project-header">
-            <div class="project-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🚗</div>
-            <span class="project-status demo">● DEMO</span>
+            <div class="project-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">💼</div>
+            <span class="project-status live">● LIVE</span>
+            
           </div>
           <div class="project-body">
             <h3>Ride Hailing App</h3>
@@ -1316,7 +1323,6 @@
             <ul class="project-meta">
               <li><strong>Problem:</strong> Fragmented workflows for managing content and ride services.</li>
               <li><strong>Built:</strong> Secure admin panel with authentication, uploads, and CRUD.</li>
-              <li><strong>Role:</strong> Full Stack Developer</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag">Flutter</span>
@@ -1342,7 +1348,6 @@
             <ul class="project-meta">
               <li><strong>Problem:</strong> No centralized admin control system</li>
               <li><strong>Built:</strong> Full CRUD, file uploads, admin auth</li>
-              <li><strong>Role:</strong> Full Stack Developer</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag">Django</span>
@@ -1358,8 +1363,8 @@
 
         <div class="project-card fade-in">
           <div class="project-header">
-            <div class="project-icon" style="background: linear-gradient(135deg, #10b981, #059669);">💰</div>
-            <span class="project-status demo">● DEMO</span>
+            <div class="project-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">💼</div>
+            <span class="project-status live">● LIVE</span>
           </div>
           <div class="project-body">
             <h3>GFund – Fintech VTU App</h3>
@@ -1367,7 +1372,6 @@
             <ul class="project-meta">
               <li><strong>Problem:</strong> Fragmented digital payment services</li>
               <li><strong>Built:</strong> Wallets, transactions, APIs</li>
-              <li><strong>Role:</strong> Full Stack Developer</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag">Django</span>
@@ -1392,7 +1396,6 @@
             <ul class="project-meta">
               <li><strong>Problem:</strong> No simple content platform</li>
               <li><strong>Built:</strong> Posts, categories, uploads</li>
-              <li><strong>Role:</strong> Full Stack Developer</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag">Django</span>
@@ -1417,7 +1420,6 @@
             <ul class="project-meta">
               <li><strong>Problem:</strong> No structured backend for blog systems</li>
               <li><strong>Built:</strong> Auth, posts, filtering, pagination</li>
-              <li><strong>Role:</strong> Backend architecture</li>
             </ul>
             <div class="project-tech">
               <span class="tech-tag">Node.js</span>
@@ -1518,6 +1520,22 @@
             <div class="year">2020</div>
           </div>
         </div>
+        <div class="edu-card fade-in">
+          <div class="edu-icon">💻</div>
+          <div class="edu-info">
+            <h4>Ethical Hacking and Penetration Testing</h4>
+            <p>Udemy Online Certification</p>
+            <div class="year">2023</div>
+          </div>
+        </div>
+        <!-- <div class="edu-card fade-in">
+          <div class="edu-icon">💻</div>
+          <div class="edu-info">
+            <h4>Python for Data Science</h4>
+            <p>Udemy Online Certification</p>
+            <div class="year">2020</div>
+          </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -1547,7 +1565,8 @@
             <div class="icon">📞</div>
             <div class="details">
               <h4>Phone</h4>
-              <p>+234 813 628 5727</p>
+              <p>+234 813 628 5727 (WhatsApp)</p>
+              <p>+234 8058066625</p>
             </div>
           </a>
 
@@ -1566,8 +1585,34 @@
           </div>
         </div>
 
+
+        <!-- ================= FORM ===================================================== -->
+
         <div class="contact-form fade-in">
-          <form action="mailto:eyogeorge23@gmail.com" method="post" enctype="text/plain">
+          <form id="contactForm">
+  <div class="form-group">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" name="name" placeholder="John Doe" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+  </div>
+  <!-- <div class="form-group">
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" name="subject" placeholder="Project Inquiry">
+  </div> -->
+  <div class="form-group">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" style="width: 100%;" id="submitBtn">
+    <span id="btnText">Send Message →</span>
+  </button>
+  <p id="formStatus" style="text-align: center; margin-top: 1rem; font-size: 0.9rem; min-height: 1.5rem;"></p>
+</form>
+
+          <!-- <form action="mailto:eyogeorge23@gmail.com" method="post" enctype="text/plain">
             <div class="form-group">
               <label for="name">Your Name</label>
               <input type="text" id="name" name="name" placeholder="John Doe" required>
@@ -1585,11 +1630,13 @@
               <textarea id="message" name="message" placeholder="Tell me about your project..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message →</button>
-          </form>
+          </form> -->
         </div>
       </div>
     </div>
   </section>
+
+  
 
   <!-- Footer -->
   <footer>
@@ -1646,7 +1693,63 @@
       navLinks.style.padding = '1rem 2rem';
       navLinks.style.borderBottom = '1px solid var(--border-color)';
     }
+
+
+
+    
+// Contact form submission to Google Apps Script
+const contactForm = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const btnText = document.getElementById('btnText');
+const formStatus = document.getElementById('formStatus');
+
+// 🔴 REPLACE THIS with your actual Google Apps Script Web App URL
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMa8iftS4eNui6W88i3Izot39Ossk5fVlxIrfyL2mc6GNvpTVdTlgs2SIZEpc5IA4/exec';
+
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  // Disable button & show loading
+  submitBtn.disabled = true;
+  btnText.textContent = 'Sending...';
+  formStatus.textContent = '';
+  formStatus.style.color = 'var(--text-secondary)';
+  
+  const formData = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    // subject: document.getElementById('subject').value,
+    message: document.getElementById('message').value
+  };
+  
+  try {
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors', // Required for Google Apps Script
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+    
+    // Show success (no-cors prevents reading response, so we assume success)
+    formStatus.textContent = '✅ Message sent successfully! I will get back to you soon.';
+    formStatus.style.color = 'var(--accent-green)';
+    contactForm.reset();
+    
+  } catch (error) {
+    formStatus.textContent = '❌ Something went wrong. Please try again or email me directly.';
+    formStatus.style.color = 'var(--accent-pink)';
+  } finally {
+    submitBtn.disabled = false;
+    btnText.textContent = 'Send Message →';
+  }
+});
+
   </script>
+
+
+
 
 </body>
 </html>
