@@ -4,226 +4,1649 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>George Eyo – Backend / Web Developer</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-pink: #ec4899;
+      --accent-green: #10b981;
+      --accent-orange: #f59e0b;
+      --border-color: rgba(148, 163, 184, 0.15);
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bg-animation .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .bg-animation .orb:nth-child(1) {
+      width: 400px;
+      height: 400px;
+      background: var(--accent-cyan);
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .bg-animation .orb:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background: var(--accent-purple);
+      top: 50%;
+      right: -50px;
+      animation-delay: -5s;
+    }
+
+    .bg-animation .orb:nth-child(3) {
+      width: 350px;
+      height: 350px;
+      background: var(--accent-pink);
+      bottom: -100px;
+      left: 30%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(50px, -30px) scale(1.1); }
+      50% { transform: translate(-30px, 50px) scale(0.9); }
+      75% { transform: translate(30px, 30px) scale(1.05); }
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      margin-bottom: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      color: white;
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(6, 182, 212, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-cyan);
+    }
+
+    .hero-image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-image .profile-frame {
+      width: 320px;
+      height: 320px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+      padding: 4px;
+      position: relative;
+      animation: rotate-gradient 8s linear infinite;
+    }
+
+    @keyframes rotate-gradient {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .hero-image .profile-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 26px;
+      background: var(--bg-secondary);
+    }
+
+    .hero-image .floating-tag {
+      position: absolute;
+      padding: 0.5rem 1rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-secondary);
+      animation: float-tag 3s ease-in-out infinite;
+    }
+
+    .hero-image .floating-tag.tag-1 {
+      top: 10%;
+      right: 0;
+      animation-delay: 0s;
+    }
+
+    .hero-image .floating-tag.tag-2 {
+      bottom: 15%;
+      left: -10%;
+      animation-delay: -1.5s;
+    }
+
+    @keyframes float-tag {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Section Styles */
+    section {
+      padding: 6rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 .gradient-text {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      border-radius: 2px;
+      margin: 1rem auto 0;
+    }
+
+    /* About Section */
+    #about {
+      background: linear-gradient(180deg, transparent, rgba(30, 41, 59, 0.3), transparent);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-cyan);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-card .number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-card .label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Skills Section */
+    #skills {
+      background: var(--bg-secondary);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(6, 182, 212, 0.3);
+      box-shadow: var(--shadow);
+    }
+
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      padding: 0.35rem 0.75rem;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .project-header {
+      padding: 1.5rem 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .project-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .project-status.live {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .project-status.demo {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-orange);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .project-body {
+      padding: 1rem 1.5rem 1.5rem;
+    }
+
+    .project-body h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-body > p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-meta {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    .project-meta li {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      padding: 0.25rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .project-meta li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent-purple);
+      font-weight: bold;
+    }
+
+    .project-meta li strong {
+      color: var(--text-primary);
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-tag {
+      padding: 0.3rem 0.7rem;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: var(--accent-purple);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .project-links a {
+      flex: 1;
+      text-align: center;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .project-links .link-live {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      color: white;
+    }
+
+    .project-links .link-live:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    .project-links .link-github {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .project-links .link-github:hover {
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+    }
+
+    /* Experience Section */
+    #experience {
+      background: var(--bg-secondary);
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 70px;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 14px;
+      top: 4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 3px solid var(--accent-cyan);
+      z-index: 1;
+    }
+
+    .timeline-content {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      border-color: rgba(6, 182, 212, 0.3);
+      transform: translateX(5px);
+    }
+
+    .timeline-content .job-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-content .company {
+      color: var(--accent-cyan);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .timeline-content .period {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-content ul {
+      list-style: none;
+    }
+
+    .timeline-content ul li {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .timeline-content ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-purple);
+    }
+
+    /* Education Section */
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .edu-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: all 0.3s ease;
+    }
+
+    .edu-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-purple);
+    }
+
+    .edu-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .edu-info h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-info p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .edu-info .year {
+      color: var(--accent-cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: linear-gradient(180deg, transparent, rgba(30, 41, 59, 0.5));
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info > p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent-cyan);
+      transform: translateX(5px);
+    }
+
+    .contact-item .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item .details h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .contact-item .details p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      color: white;
+      border-color: transparent;
+      transform: translateY(-3px);
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      list-style: none;
+    }
+
+    footer .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s ease;
+    }
+
+    footer .footer-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero p {
+        margin: 0 auto 2rem;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-image {
+        order: -1;
+      }
+
+      .hero-image .profile-frame {
+        width: 250px;
+        height: 250px;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .timeline::before {
+        left: 14px;
+      }
+
+      .timeline-item {
+        padding-left: 50px;
+      }
+
+      .timeline-dot {
+        left: 4px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  </style>
+<base target="_blank">
 </head>
 <body>
 
-<header class="hero">
-  <div class="container hero-content">
-    <div class="header-text">
-      <h1>George Eyo</h1>
-      <h3>Backend / Web Developer (Django, Python)</h3>
-      <p>
-        I build reliable, scalable web applications using Python and Django —
-        from idea to deployment.
-      </p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn">View My Work</a>
-        <a href="#contact" class="btn secondary">Contact Me</a>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="container">
+      <a href="#" class="logo">&lt;GeorgeEyo /&gt;</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container hero-content">
+      <div class="header-text">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Available for hire
+        </div>
+        <h1>Hi, I'm <span class="gradient-text">George Eyo</span></h1>
+        <h3>Backend & Web Developer</h3>
+        <p>
+          I build reliable, scalable web applications using <strong>Python</strong> and <strong>Django</strong> —
+          from idea to deployment. Turning complex problems into elegant, production-ready solutions.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View My Work →</a>
+          <a href="#contact" class="btn btn-secondary">Contact Me</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="profile-frame">
+          <img src="images/moi.png" alt="George Eyo">
+        </div>
+        <div class="floating-tag tag-1">🐍 Python Expert</div>
+        <div class="floating-tag tag-2">⚡ Django Pro</div>
       </div>
     </div>
-    <img src="images/moi.png" alt="George Eyo" class="profile-pic">
-  </div>
-</header>
+  </header>
 
-<section id="about">
-  <div class="container">
-    <h2>About Me</h2>
-    <p>
-      I am a backend-focused developer who enjoys building admin dashboards,
-      data-driven systems, and real-world business applications using Django and Python.
-    </p>
-    <p>
-      I don’t just code locally — I deploy, debug, and maintain real applications online.
-      I understand static files, media uploads, authentication, hosting, and production issues.
-    </p>
-    <p>
-      I also have a background in Mechanical Engineering, which shaped my
-      analytical and problem-solving mindset.
-    </p>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="container">
-    <h2>Skills</h2>
-    <div class="grid">
-      <div class="card"><strong>Languages</strong><br>Python, HTML, CSS, JavaScript</div>
-      <div class="card"><strong>Frameworks</strong><br>Django, Bootstrap</div>
-      <div class="card"><strong>Databases</strong><br>SQLite, MySQL, PostgreSQL</div>
-      <div class="card"><strong>Tools</strong><br>Git, GitHub, PythonAnywhere</div>
-      <div class="card"><strong>Concepts</strong><br>CRUD, Auth, File Uploads, Deployment</div>
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2>About <span class="gradient-text">Me</span></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <h3>Engineer by training, Developer by passion</h3>
+          <p>
+            I am a backend-focused developer who enjoys building admin dashboards,
+            data-driven systems, and real-world business applications using Django and Python.
+          </p>
+          <p>
+            I don't just code locally — I deploy, debug, and maintain real applications online.
+            I understand static files, media uploads, authentication, hosting, and production issues.
+          </p>
+          <p>
+            My background in <strong>Mechanical Engineering</strong> shaped my analytical and
+            problem-solving mindset, allowing me to approach software challenges with precision and creativity.
+          </p>
+        </div>
+        <div class="about-stats fade-in">
+          <div class="stat-card">
+            <div class="number">8+</div>
+            <div class="label">Years Experience</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">15+</div>
+            <div class="label">Projects Built</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">7+</div>
+            <div class="label">Live Deployments</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">100%</div>
+            <div class="label">Client Satisfaction</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="projects">
-  <div class="container">
-    <h2>Projects</h2>
-    <p class="section-intro">
-      These projects demonstrate my ability to design, build, deploy,
-      and maintain real-world web systems.
-    </p>
-
-  <div class="grid">
-
-  <div class="card">
-  <!-- <img src="images/admin.png" alt="Admin Dashboard"> -->
-    <h3>Ride Hailing App</h3>
-    <p>Web app for managing services, messages, and public content.</p>
-    <ul>
-      <li><strong>Problem:</strong> Fragmented workflows for managing content and ride services.</li>
-<li><strong>Built:</strong> Secure admin panel with authentication, uploads, and CRUD.</li>
-
-      <li><strong>Role:</strong> Backend development</li>
-    </ul>
-    <p><strong>Tech:</strong>Flutter, Django, Python, Tailwind CSS</p>
-    <p>
-      <a href="https://geecosmic.github.io/TegZee-APK/" target="_blank">Live Demo</a> |
-      <a href="https://github.com/geecosmic/Admin-Dashboard" target="_blank">GitHub (On Request)</a>
-    </p>
-  </div>
-
-  
-  <div class="card">
-  <!-- <img src="images/admin.png" alt="Admin Dashboard"> -->
-    <h3>Admin Dashboard System</h3>
-    <p>Web app for managing services, messages, and public content.</p>
-    <ul>
-      <li><strong>Problem:</strong> No centralized admin control system</li>
-      <li><strong>Built:</strong> CRUD, uploads, admin auth</li>
-      <li><strong>Role:</strong> Backend development</li>
-    </ul>
-    <p><strong>Tech:</strong> Django, Python, Bootstrap</p>
-    <p>
-      <a href="https://gee.pythonanywhere.com/" target="_blank">Live Demo</a> |
-      <a href="https://github.com/geecosmic/Admin-Dashboard" target="_blank">GitHub</a>
-    </p>
-  </div>
-
-<div class="card">
-  <!-- <img src="images/fin.png" alt="GFund App"> -->
-  <h3>GFund – Fintech VTU App</h3>
-  <p>Fintech platform for airtime, data, electricity, and cable TV payments.</p>
-  <ul>
-    <li><strong>Problem:</strong> Fragmented digital payment services</li>
-    <li><strong>Built:</strong> Wallets, transactions, APIs</li>
-    <li><strong>Role:</strong> Backend development</li>
-  </ul>
-  <p><strong>Tech:</strong> Django, Python, Flutter</p>
-  <p>
-    <a href="#">APK</a> |
-    <a href="https://github.com/geecosmic/fintech_backend" target="_blank">GitHub</a>
-  </p>
-</div>
-
-<div class="card">
-  <!-- <img src="images/blogapi.png" alt="Blog API Project"> -->
-  <h3>Blog API – RESTful Backend</h3>
-  <p>Scalable backend API for blog platforms with secure content management.</p>
-  <ul>
-    <li><strong>Problem:</strong> No structured backend for blog systems</li>
-    <li><strong>Built:</strong> Auth, posts, filtering, pagination</li>
-    <li><strong>Role:</strong> Backend architecture</li>
-  </ul>
-  <p><strong>Tech:</strong> Node.js, Express, MongoDB, JWT</p>
-  <p>
-    <!-- <a href="#" target="_blank">Live API</a> | -->
-    <a href="https://github.com/geecosmic/Blog_Api" target="_blank">GitHub</a>
-  </p>
-</div>
-
-<div class="card">
-  <!-- <img src="images/tech.png" alt="Message Collection"> -->
-  <h3>Message Collection App</h3>
-  <p>Web app that collects and stores user messages.</p>
-  <ul>
-    <li><strong>Problem:</strong> No structured message storage</li>
-    <li><strong>Built:</strong> Forms, storage, admin view</li>
-    <li><strong>Role:</strong> Backend development</li>
-  </ul>
-  <p><strong>Tech:</strong> Django, Python, CSS</p>
-  <p>
-    <a href="#">Live</a> |
-    <a href="https://github.com/geecosmic/Business-Site" target="_blank">GitHub</a>
-  </p>
-</div>
-
-<div class="card">
-  <!-- <img src="images/blog.jpg" alt="Blog CMS"> -->
-  <h3>Blog & CMS Platform</h3>
-  <p>Content management system with publishing tools.</p>
-  <ul>
-    <li><strong>Problem:</strong> No simple content platform</li>
-    <li><strong>Built:</strong> Posts, categories, uploads</li>
-    <li><strong>Role:</strong> Backend development</li>
-  </ul>
-  <p><strong>Tech:</strong> Django, Python, Bootstrap</p>
-  <p>
-    <a href="https://geecms.pythonanywhere.com/" target="_blank">Live</a> |
-    <a href="https://github.com/geecosmic/Blog-CMS" target="_blank">GitHub</a>
-  </p>
-</div>
-
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2>Technical <span class="gradient-text">Skills</span></h2>
+        <p>Technologies and tools I use to bring ideas to life</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card fade-in">
+          <div class="skill-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">💻</div>
+          <h3>Languages</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">🛠️</div>
+          <h3>Frameworks</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Django</span>
+            <span class="skill-tag">Django REST</span>
+            <span class="skill-tag">Bootstrap</span>
+            <span class="skill-tag">Tailwind CSS</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon" style="background: linear-gradient(135deg, #10b981, #059669);">🗄️</div>
+          <h3>Databases</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">SQLite</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">⚙️</div>
+          <h3>Tools & Platforms</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">PythonAnywhere</span>
+            <span class="skill-tag">Render</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">🎯</div>
+          <h3>Core Concepts</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">CRUD</span>
+            <span class="skill-tag">Authentication</span>
+            <span class="skill-tag">File Uploads</span>
+            <span class="skill-tag">Deployment</span>
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">JWT</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">📱</div>
+          <h3>Mobile & Cross-Platform</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Flutter</span>
+            <span class="skill-tag">Dart</span>
+            <span class="skill-tag">API Integration</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="experience">
-  <div class="container">
-    <h2>Experience</h2>
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2>Featured <span class="gradient-text">Projects</span></h2>
+        <p>Real-world applications I've designed, built, deployed, and maintained</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="projects-grid">
 
-    <div class="card">
-      <strong>Deputy Manager — The Kabbalah Center Nigeria</strong> (2019 – Present)
-      <ul>
-        <li>Built desktop and web tools using Python</li>
-        <li>Managed websites and performance</li>
-        <li>Data analysis for business decisions</li>
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">💼</div>
+            <span class="project-status live">● LIVE</span>
+          </div>
+          <div class="project-body">
+            <h3>JobWorhole</h3>
+            <p>SAAS platform for job listings and recruitment services.</p>
+            <ul class="project-meta">
+              <li><strong>Problem:</strong> Fragmented workflows for managing job content and services.</li>
+              <li><strong>Built:</strong> Secure admin panel with authentication, uploads, and CRUD.</li>
+              <li><strong>Role:</strong> Full Stack Developer</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Django</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Tailwind CSS</span>
+            </div>
+            <div class="project-links">
+              <a href="https://jobs-lz90.onrender.com/" target="_blank" class="link-live">Live Site →</a>
+              <a href="#" target="_blank" class="link-github">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🚗</div>
+            <span class="project-status demo">● DEMO</span>
+          </div>
+          <div class="project-body">
+            <h3>Ride Hailing App</h3>
+            <p>Web app for managing ride services, messages, and public content.</p>
+            <ul class="project-meta">
+              <li><strong>Problem:</strong> Fragmented workflows for managing content and ride services.</li>
+              <li><strong>Built:</strong> Secure admin panel with authentication, uploads, and CRUD.</li>
+              <li><strong>Role:</strong> Full Stack Developer</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Django</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Tailwind CSS</span>
+            </div>
+            <div class="project-links">
+              <a href="https://geecosmic.github.io/TegZee-APK/" target="_blank" class="link-live">Live Demo →</a>
+              <a href="https://github.com/geecosmic/Admin-Dashboard" target="_blank" class="link-github">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">📊</div>
+            <span class="project-status live">● LIVE</span>
+          </div>
+          <div class="project-body">
+            <h3>Admin Dashboard System</h3>
+            <p>Web app for managing services, messages, and public content.</p>
+            <ul class="project-meta">
+              <li><strong>Problem:</strong> No centralized admin control system</li>
+              <li><strong>Built:</strong> Full CRUD, file uploads, admin auth</li>
+              <li><strong>Role:</strong> Full Stack Developer</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Django</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Bootstrap</span>
+            </div>
+            <div class="project-links">
+              <a href="https://gee.pythonanywhere.com/" target="_blank" class="link-live">Live Demo →</a>
+              <a href="https://github.com/geecosmic/Admin-Dashboard" target="_blank" class="link-github">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon" style="background: linear-gradient(135deg, #10b981, #059669);">💰</div>
+            <span class="project-status demo">● DEMO</span>
+          </div>
+          <div class="project-body">
+            <h3>GFund – Fintech VTU App</h3>
+            <p>Fintech platform for airtime, data, electricity, and cable TV payments.</p>
+            <ul class="project-meta">
+              <li><strong>Problem:</strong> Fragmented digital payment services</li>
+              <li><strong>Built:</strong> Wallets, transactions, APIs</li>
+              <li><strong>Role:</strong> Full Stack Developer</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Django</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Flutter</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="link-live">APK ↓</a>
+              <a href="https://github.com/geecosmic/fintech_backend" target="_blank" class="link-github">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">📝</div>
+            <span class="project-status live">● LIVE</span>
+          </div>
+          <div class="project-body">
+            <h3>Blog & CMS Platform</h3>
+            <p>Content management system with publishing tools and categories.</p>
+            <ul class="project-meta">
+              <li><strong>Problem:</strong> No simple content platform</li>
+              <li><strong>Built:</strong> Posts, categories, uploads</li>
+              <li><strong>Role:</strong> Full Stack Developer</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Django</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Bootstrap</span>
+            </div>
+            <div class="project-links">
+              <a href="https://geecms.pythonanywhere.com/" target="_blank" class="link-live">Live Site →</a>
+              <a href="https://github.com/geecosmic/Blog-CMS" target="_blank" class="link-github">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">📡</div>
+            <span class="project-status live">● LIVE</span>
+          </div>
+          <div class="project-body">
+            <h3>Blog API – RESTful Backend</h3>
+            <p>Scalable backend API for blog platforms with secure content management.</p>
+            <ul class="project-meta">
+              <li><strong>Problem:</strong> No structured backend for blog systems</li>
+              <li><strong>Built:</strong> Auth, posts, filtering, pagination</li>
+              <li><strong>Role:</strong> Backend architecture</li>
+            </ul>
+            <div class="project-tech">
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Express</span>
+              <span class="tech-tag">MongoDB</span>
+              <span class="tech-tag">JWT</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/geecosmic/Blog_Api" target="_blank" class="link-github" style="flex:1;">View on GitHub →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2>Work <span class="gradient-text">Experience</span></h2>
+        <p>My professional journey in tech and engineering</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="job-title">Deputy Manager</div>
+            <div class="company">The Kabbalah Center Nigeria</div>
+            <div class="period">2019 – Present</div>
+            <ul>
+              <li>Built desktop and web tools using Python</li>
+              <li>Managed websites and performance optimization</li>
+              <li>Data analysis for business decisions</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="job-title">Website Developer</div>
+            <div class="company">PureTech Marketing Agency</div>
+            <div class="period">2016 – 2019</div>
+            <ul>
+              <li>Built Django web applications for clients</li>
+              <li>Managed databases and admin tools</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="job-title">Desktop & Backend Developer</div>
+            <div class="company">True Web Inc.</div>
+            <div class="period">2016 – 2018</div>
+            <ul>
+              <li>Built web applications using Django and JavaScript</li>
+              <li>Designed and maintained MySQL databases</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2>Education & <span class="gradient-text">Certifications</span></h2>
+        <p>Academic background and continuous learning</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="education-grid">
+        <div class="edu-card fade-in">
+          <div class="edu-icon">🎓</div>
+          <div class="edu-info">
+            <h4>HND Mechanical Engineering</h4>
+            <p>The Polytechnic Calabar</p>
+            <div class="year">2003</div>
+          </div>
+        </div>
+        <div class="edu-card fade-in">
+          <div class="edu-icon">📜</div>
+          <div class="edu-info">
+            <h4>ND Mechanical Engineering</h4>
+            <p>The Polytechnic Calabar</p>
+            <div class="year">1998</div>
+          </div>
+        </div>
+        <div class="edu-card fade-in">
+          <div class="edu-icon">💻</div>
+          <div class="edu-info">
+            <h4>Python for Data Science</h4>
+            <p>Udemy Online Certification</p>
+            <div class="year">2020</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2>Get In <span class="gradient-text">Touch</span></h2>
+        <p>Have a project in mind? Let's build something amazing together.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <h3>Let's work together</h3>
+          <p>I'm currently available for freelance projects and full-time opportunities. Whether you need a backend system, API, or full web application — I'm ready to help.</p>
+
+          <a href="mailto:eyogeorge23@gmail.com" class="contact-item">
+            <div class="icon">✉️</div>
+            <div class="details">
+              <h4>Email</h4>
+              <p>eyogeorge23@gmail.com</p>
+            </div>
+          </a>
+
+          <a href="tel:+2348136285727" class="contact-item">
+            <div class="icon">📞</div>
+            <div class="details">
+              <h4>Phone</h4>
+              <p>+234 813 628 5727</p>
+            </div>
+          </a>
+
+          <div class="contact-item" style="cursor: default;">
+            <div class="icon">📍</div>
+            <div class="details">
+              <h4>Location</h4>
+              <p>Lagos, Nigeria</p>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a href="https://github.com/geecosmic" target="_blank" title="GitHub">GH</a>
+            <a href="mailto:eyogeorge23@gmail.com" title="Email">@</a>
+            <a href="tel:+2348136285727" title="Phone">📱</a>
+          </div>
+        </div>
+
+        <div class="contact-form fade-in">
+          <form action="mailto:eyogeorge23@gmail.com" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Project Inquiry">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me about your project..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
+      <p>© 2026 George Eyo — Backend / Web Developer. Built with ❤️ using HTML & CSS.</p>
     </div>
+  </footer>
 
-    <div class="card">
-      <strong>Website Developer — PureTech Marketing Agency</strong> (2016 – 2019)
-      <ul>
-        <li>Built Django web applications</li>
-        <li>Managed databases and admin tools</li>
-      </ul>
-    </div>
-    <div class="card">
-      <strong>Desktop Developer & Back End Developer, True Web Inc. Online — True Web Inc</strong> (2016 – 2018)
-      <ul>
-        <li>Built web applications using Django and JavaScript</li>
-        <li>Designed and maintained MySQL databases</li>
-      </ul>
-    </div>
-  </div>
-  </div>
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
 
-</section>
+    // Fade in animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
 
-<section id="education">
-  <div class="container">
-    <h2>Education</h2>
-    <ul>
-      <li>HND Mechanical Engineering — The Polytechnic Calabar (2003)</li>
-      <li>ND Mechanical Engineering — The Polytechnic Calabar (1998)</li>
-      <li>Udemy — Python for Data Science (2020)</li>
-    </ul>
-  </div>
-</section>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
 
-<section id="contact">
-  <div class="container">
-    <h2>Contact</h2>
-    <p>Email: <strong>eyogeorge23@gmail.com</strong></p>
-    <p>Phone: <strong>+234 813 628 5727</strong></p>
-    <p>Location: Lagos, Nigeria</p>
-  </div>
-</section>
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-<footer>
-  <p>© 2026 George Eyo — Backend / Web Developer</p>
-</footer>
+    // Mobile menu toggle
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      navLinks.style.position = 'absolute';
+      navLinks.style.top = '100%';
+      navLinks.style.left = '0';
+      navLinks.style.right = '0';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.background = 'rgba(15, 23, 42, 0.95)';
+      navLinks.style.backdropFilter = 'blur(20px)';
+      navLinks.style.padding = '1rem 2rem';
+      navLinks.style.borderBottom = '1px solid var(--border-color)';
+    }
+  </script>
 
 </body>
 </html>
